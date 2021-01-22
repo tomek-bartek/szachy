@@ -112,7 +112,16 @@ namespace Chess1
         {
             
             Button clickedCell = (Button)sender;
-            string clickedLabel = clickedCell.Content.ToString();
+            string clickedLabel ="";
+            if (null == clickedCell.Content.ToString())
+            {
+                MessageBox.Show("Tu nie ma pionka");
+            }
+            else
+            {
+
+            clickedLabel = clickedCell.Content.ToString();
+            }
             Point lokacja = (Point)clickedCell.Tag;
             int x = (int)lokacja.X;
             int y = (int)lokacja.Y;
