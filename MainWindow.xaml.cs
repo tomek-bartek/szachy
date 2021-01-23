@@ -21,23 +21,14 @@ namespace Chess1
     public partial class MainWindow : Window
     {
         public static Board myBoard = new Board(8);
-        public static Board myPrevoiusBoard = new Board(8);
-        public static Board myNextBoard = new Board(8);
+        public static Board myPossibleMove = new Board(8);
+     
         public Button[,] btnGrid = new Button[myBoard.Size, myBoard.Size];
-
-
-        
-
 
         public MainWindow()
         {
-            
             InitializeComponent();
             showStartBoard();
-            
-            
-
-
         }
 
         public void showStartBoard()
@@ -51,14 +42,14 @@ namespace Chess1
                     //Startowy board z ustawionymi pionkami 
                     
                         //      Czarne Pionki
-                    if (j == 1)
+                    if (i == 1)
                         myBoard.theGrid[i, j].PieceName = "PawnBlack";
                     myBoard.theGrid[i, j].CurrentlyOccupied = true;
 
 
                          //     Białe Pionki
 
-                    if (j == 6)
+                    if (i == 6)
                         myBoard.theGrid[i, j].PieceName = "PawnWhite";
                     myBoard.theGrid[i, j].CurrentlyOccupied = true;
 
@@ -74,8 +65,8 @@ namespace Chess1
 
                     btnGrid[i, j].Tag = new Point(i, j);
 
-                    Grid.SetColumn(btnGrid[i, j], i);
-                    Grid.SetRow(btnGrid[i, j], j);
+                    Grid.SetColumn(btnGrid[i, j], j);
+                    Grid.SetRow(btnGrid[i, j], i);
                     grid.Children.Add(btnGrid[i, j]);
 
                 }
@@ -94,8 +85,8 @@ namespace Chess1
                     //otagowanie lokacją
                     btnGrid[i, j].Tag = new Point(i, j);
                     //dodanie do winformsa
-                    Grid.SetColumn(btnGrid[i, j], i);
-                    Grid.SetRow(btnGrid[i, j], j);
+                    Grid.SetColumn(btnGrid[i, j], j);
+                    Grid.SetRow(btnGrid[i, j], i);
                     grid.Children.Add(btnGrid[i, j]);
                 }
 

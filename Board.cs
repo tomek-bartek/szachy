@@ -99,14 +99,14 @@ namespace Chess1
                     break;
 
                 case "PawnWhite":
-                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber)) 
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber-1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber-1, currentCell.ColNumber)) 
+                        theGrid[currentCell.RowNumber-1, currentCell.ColNumber].LegalNextMove = true;
                     
                     break;
 
                 case "PawnBlack":
-                    if (isSafe(currentCell.RowNumber , currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber+1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber+1, currentCell.ColNumber))
+                        theGrid[currentCell.RowNumber+1, currentCell.ColNumber].LegalNextMove = true;
                     break;
 
                 case "Queen":
