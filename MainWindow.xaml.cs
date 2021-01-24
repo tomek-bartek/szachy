@@ -21,12 +21,15 @@ namespace Chess1
     public partial class MainWindow : Window
     {
         private static Board myBoard = new Board(8);
-        private static Board myPossibleMove = new Board(8);
+        //private static Board myPossibleMove = new Board(8);
 
         private Button[,] btnGrid = new Button[myBoard.Size, myBoard.Size];
 
         private static Cell prevoiusClickedCell = null; //zapamiętywanie klikniętego poprzedniego kliknięcia
         private bool WhiteTurn = true;
+
+        private bool someoneWon = false;
+        private string ktoWygral = "";
 
         public MainWindow()
         {
@@ -198,74 +201,103 @@ namespace Chess1
         
         private void Grid_Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            Button clickedCell = (Button)sender;
-            string clickedLabel ="";
-            
-            if (clickedCell.Content.ToString() == null || clickedCell.Content.ToString() == "")
+            if (!someoneWon)
             {
-                MessageBox.Show("Tu nie ma pionka");
-            }
-            else if (clickedCell.Content.ToString().Contains("White") && WhiteTurn == false)
-            {
-                MessageBox.Show("Tura czarnego");
-            }
-            else if (clickedCell.Content.ToString().Contains("Black") && WhiteTurn == true)
-            {
-                MessageBox.Show("Tura białego");
-            }
-            else
-            {
-                clickedLabel = clickedCell.Content.ToString();
-            
+                Button clickedCell = (Button)sender;
+                string clickedLabel = "";
 
-                Point lokacja = (Point)clickedCell.Tag;
-                int x = (int)lokacja.X;
-                int y = (int)lokacja.Y;
-           
-
-                Cell currentCell = myBoard.theGrid[x, y];
-                currentCell.CurrentlyOccupied = true;
-            
-                if (clickedLabel == "MoveHere" || clickedLabel.Contains("Beat"))
+                if (clickedCell.Content.ToString() == null || clickedCell.Content.ToString() == "")
                 {
-                    myBoard.theGrid[currentCell.RowNumber, currentCell.ColNumber].PieceName = prevoiusClickedCell.PieceName;
-                    prevoiusClickedCell.PieceName = "";
-                    prevoiusClickedCell.CurrentlyOccupied = false;
-                    WhiteTurn = !WhiteTurn;
-                    showBoard();
-
+                    MessageBox.Show("Tu nie ma pionka");
+                }
+                else if (clickedCell.Content.ToString().Contains("White") && WhiteTurn == false)
+                {
+                    MessageBox.Show("Tura czarnego");
+                }
+                else if (clickedCell.Content.ToString().Contains("Black") && WhiteTurn == true)
+                {
+                    MessageBox.Show("Tura białego");
                 }
                 else
                 {
-                    showBoard();
-                     myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
-                     for (int i = 0; i < myBoard.Size; i++)
+                    clickedLabel = clickedCell.Content.ToString();
+
+
+                    Point lokacja = (Point)clickedCell.Tag;
+                    int x = (int)lokacja.X;
+                    int y = (int)lokacja.Y;
+
+
+                    Cell currentCell = myBoard.theGrid[x, y];
+                    currentCell.CurrentlyOccupied = true;
+
+
+
+                    if (clickedLabel == "MoveHere" || clickedLabel.Contains("Beat"))
+                    {
+                        //warunek wygrania - uproszczona wersja szachów
+                        if (myBoard.theGrid[x, y].PieceName.Contains("WhiteKing"))
+                        {
+                            someoneWon = true;
+                            ktoWygral = "Szach Mat - wygrywa Czarny Gracz";
+                            MessageBox.Show(ktoWygral);
+                            ktoWygral = "Wygrał Czarny Gracz";
+                            showBoard();
+                        }
+                        else if (myBoard.theGrid[x, y].PieceName.Contains("BlackKing"))
+                        {
+                            someoneWon = true;
+                            ktoWygral = "Szach Mat - wygrywa Biały Gracz";
+                            MessageBox.Show(ktoWygral);
+                            ktoWygral = "wygrał Biały Gracz";
+                            showBoard();
+                        }
+                        else
+                        {
+                            myBoard.theGrid[currentCell.RowNumber, currentCell.ColNumber].PieceName = prevoiusClickedCell.PieceName;
+                            prevoiusClickedCell.PieceName = "";
+                            prevoiusClickedCell.CurrentlyOccupied = false;
+                            WhiteTurn = !WhiteTurn;
+                            showBoard();
+                        }
+
+
+                    }
+                    else
+                    {
+                        showBoard();
+                        myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
+                        for (int i = 0; i < myBoard.Size; i++)
+                        {
+                            for (int j = 0; j < myBoard.Size; j++)
+                            {
+                                if (myBoard.theGrid[i, j].LegalNextMove == true)
                                 {
-                                    for (int j = 0; j < myBoard.Size; j++)
-                                    {
-                                        if (myBoard.theGrid[i, j].LegalNextMove == true)
-                                        {
-                                            if(btnGrid[i, j].Content.Equals(""))
-                                                btnGrid[i, j].Content = "MoveHere";
-                                            else
-                                                btnGrid[i, j].Content = "Beat";
+                                    if (btnGrid[i, j].Content.Equals(""))
+                                        btnGrid[i, j].Content = "MoveHere";
+                                    else
+                                        btnGrid[i, j].Content = "Beat";
 
-                                        }
-                                        else if (myBoard.theGrid[i, j].CurrentlyOccupied == true)
-                                        {
-                                            btnGrid[i, j].Content = myBoard.theGrid[i,j].PieceName;
-                                        }
+                                }
+                                else if (myBoard.theGrid[i, j].CurrentlyOccupied == true)
+                                {
+                                    btnGrid[i, j].Content = myBoard.theGrid[i, j].PieceName;
+                                }
 
-                                    }      
-                                  /*  grid.Children.Clear();*/
-                     }
+                            }
+                            /*  grid.Children.Clear();*/
+                        }
+                    }
+
+                    prevoiusClickedCell = currentCell;
+
                 }
-
-                prevoiusClickedCell = currentCell;
-
             }
-
+            else
+            {
+                MessageBox.Show(ktoWygral);
+            }
+            
         }
     }
 }
