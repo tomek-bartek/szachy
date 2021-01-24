@@ -42,263 +42,784 @@ namespace Chess1
             {
                 case "WhiteKing":
 
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber - 1].LegalNextMove = true;
+                    if (isSafe(y - 1, x) && !theGrid[y - 1, x].PieceName.Contains("White"))
+                        theGrid[y - 1, x].LegalNextMove = true;
+                    if (isSafe(y - 1, x - 1) && !theGrid[y - 1, x - 1].PieceName.Contains("White"))
+                        theGrid[y - 1, x - 1].LegalNextMove = true;
+                    if (isSafe(y - 1, x + 1) && !theGrid[y - 1, x + 1].PieceName.Contains("White"))
+                        theGrid[y - 1, x + 1].LegalNextMove = true;
+                    if (isSafe(y, x + 1) && !theGrid[y, x + 1].PieceName.Contains("White"))
+                        theGrid[y, x + 1].LegalNextMove = true;
+                    if (isSafe(y + 1, x + 1) && !theGrid[y + 1, x + 1].PieceName.Contains("White"))
+                        theGrid[y + 1, x + 1].LegalNextMove = true;
+                    if (isSafe(y + 1, x) && !theGrid[y + 1, x].PieceName.Contains("White"))
+                        theGrid[y + 1, x].LegalNextMove = true;
+                    if (isSafe(y + 1, x - 1) && !theGrid[y + 1, x - 1].PieceName.Contains("White"))
+                        theGrid[y + 1, x - 1].LegalNextMove = true;
+                    if (isSafe(y, x - 1) && !theGrid[y, x - 1].PieceName.Contains("White"))
+                        theGrid[y, x - 1].LegalNextMove = true;
                     break;
 
                 case "WhiteKnight":
-                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber - 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    
+                    if (isSafe(y + 2, x + 1) && !theGrid[y + 2, x + 1].PieceName.Contains("White"))
+                    {
+                        theGrid[y + 2, x + 1].LegalNextMove = true;
+                    }
+                    if (isSafe(y + 2, x - 1) && !theGrid[y + 2, x - 1].PieceName.Contains("White"))
+                    {
+                        theGrid[y + 2, x - 1].LegalNextMove = true;
+                    }
+                    if (isSafe(y - 2, x + 1) && !theGrid[y - 2, x + 1].PieceName.Contains("White"))
+                    {
+                        theGrid[y - 2, x + 1].LegalNextMove = true;
+                    }
+                    if (isSafe(y - 2, x - 1) && !theGrid[y - 2, x - 1].PieceName.Contains("White"))
+                    {
+                        theGrid[y - 2, x - 1].LegalNextMove = true;
+                    }
+                    if (isSafe(y + 1, x + 2) && !theGrid[y + 1, x + 2].PieceName.Contains("White"))
+                    {
+                        theGrid[y + 1, x + 2].LegalNextMove = true;
+                    }
+                    if (isSafe(y + 1, x - 2) && !theGrid[y + 1, x - 2].PieceName.Contains("White"))
+                    {
+                        theGrid[y + 1, x - 2].LegalNextMove = true;
+                    }
+                    if (isSafe(y - 1, x + 2) && !theGrid[y - 1, x + 2].PieceName.Contains("White"))
+                    {
+                        theGrid[y - 1, x + 2].LegalNextMove = true;
+                    }
+                    if (isSafe(y - 1, x - 2) && !theGrid[y - 1, x - 2].PieceName.Contains("White"))
+                    {
+                        theGrid[y - 1, x - 2].LegalNextMove = true;
+                    }
                     break;
-
 
                 case "WhiteRook":
-                    
-                    for (int i = 0; i < Size; i++)
+
+                    //checkLine(Cell currentCell, - 1, 0);
+                    for (int i = 1; i < Size; i++)
                     {
-                        if (y == (i))
+                        if (isSafe(y - i, x))
                         {
-                            for (int j = 0; j < Size; j++)
+                            if (theGrid[y - i, x].PieceName.Contains("White"))
                             {
-                                if (theGrid[i, j].CurrentlyOccupied == true)
-                                {; }
-                                else
-                                {
-                                    theGrid[i, j].LegalNextMove = true;
-                                }
-
+                                break;
                             }
+                            else if (theGrid[y - i, x].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x].LegalNextMove = true;
 
                         }
-                        else
-                        {
-                            theGrid[i, x].LegalNextMove = true;
-
-                        }
-
+                        else break;
                     }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x))
+                        {
+                            if (theGrid[y + i, x].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+
+                    for (int i = 1; i < Size; i++)
+                    {
+
+                        if (isSafe(y, x - i))
+                        {
+                            if (theGrid[y, x - i].PieceName.Contains("White")) 
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x - i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y, x + i))
+                        {
+                            if (theGrid[y, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x + i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+
                     break;
-                
+
                 case "WhitePawn":
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
+                    if (isSafe(y - 1, x))
                     {
-                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].PieceName.Equals(""))
+                        if (theGrid[y - 1, x].PieceName.Equals(""))
                         { 
-                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
-                            if (y == 6 && theGrid[currentCell.RowNumber - 2, currentCell.ColNumber].PieceName.Equals(""))
-                                theGrid[currentCell.RowNumber - 2, currentCell.ColNumber].LegalNextMove = true;
+                            theGrid[y - 1, x].LegalNextMove = true;
+                            if (y == 6 && theGrid[y - 2, x].PieceName.Equals(""))
+                                theGrid[y - 2, x].LegalNextMove = true;
                         }
-                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].PieceName.Contains("Black"))
-                        {
-                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                        }
-                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].PieceName.Contains("Black"))
-                        {
-                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                        }
+
                     }
+                    if (isSafe(y - 1, x - 1))
+                        if (theGrid[y - 1, x - 1].PieceName.Contains("Black"))
+                        {
+                            theGrid[y - 1, x - 1].LegalNextMove = true;
+                        }
+                    if (isSafe(y - 1, x + 1))
+                        if (theGrid[y - 1, x + 1].PieceName.Contains("Black"))
+                        {
+                            theGrid[y - 1, x + 1].LegalNextMove = true;
+                        }
                     break;
 
-               
-
-                
-
+        
                 case "WhiteQueen":
-                    for (int i = 0; i < Size; i++)
+                    for (int i = 1; i < Size; i++)
                     {
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(y - i, x))
+                        {
+                            if (theGrid[y - i, x].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x))
+                        {
+                            if (theGrid[y + i, x].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+
+                    for (int i = 1; i < Size; i++)
+                    {
+
+                        if (isSafe(y, x - i))
+                        {
+                            if (theGrid[y, x - i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x - i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y, x + i))
+                        {
+                            if (theGrid[y, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x + i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x - i))
+                        {
+                            if (theGrid[y - i, x - i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x - i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x + i))
+                        {
+                            if (theGrid[y - i, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x + i))
+                        {
+                            if (theGrid[y + i, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x - i))
+                        {
+                            if (theGrid[y + i, x - i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                        }
+                        else break;
                     }
                     break;
 
                 case "WhiteBishop":
                     for (int i = 1; i < Size; i++)
                     {
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(y - i, x - i))
+                        {
+                            if (theGrid[y - i, x - i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x - i].LegalNextMove = true;
+
+                        }   else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x + i))
+                        {
+                            if (theGrid[y - i, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y - i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x + i].LegalNextMove = true;
+
+                        }     else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x + i))
+                        {
+                            if (theGrid[y + i, x + i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x + i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x + i].LegalNextMove = true;
+
+                        }      else    break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x - i))
+                        {
+                            if (theGrid[y + i, x - i].PieceName.Contains("White"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x - i].PieceName.Contains("Black"))
+                            {
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                        } else break;     
                     }
                     break;
-
-
 
                 case "BlackKing":
 
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber + 1))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber - 1))
-                        theGrid[currentCell.RowNumber, currentCell.ColNumber - 1].LegalNextMove = true;
+                    if (isSafe(y - 1, x) && !theGrid[y - 1, x].PieceName.Contains("Black"))
+                        theGrid[y - 1, x].LegalNextMove = true;
+                    if (isSafe(y - 1, x - 1) && !theGrid[y - 1, x - 1].PieceName.Contains("Black"))
+                        theGrid[y - 1, x - 1].LegalNextMove = true;
+                    if (isSafe(y - 1, x + 1) && !theGrid[y - 1, x + 1].PieceName.Contains("Black"))
+                        theGrid[y - 1, x + 1].LegalNextMove = true;
+                    if (isSafe(y, x + 1) && !theGrid[y, x + 1].PieceName.Contains("Black"))
+                        theGrid[y, x + 1].LegalNextMove = true;
+                    if (isSafe(y + 1, x + 1) && !theGrid[y + 1, x + 1].PieceName.Contains("Black"))
+                        theGrid[y + 1, x + 1].LegalNextMove = true;
+                    if (isSafe(y + 1, x) && !theGrid[y + 1, x].PieceName.Contains("Black"))
+                        theGrid[y + 1, x].LegalNextMove = true;
+                    if (isSafe(y + 1, x - 1) && !theGrid[y + 1, x - 1].PieceName.Contains("Black"))
+                        theGrid[y + 1, x - 1].LegalNextMove = true;
+                    if (isSafe(y, x - 1) && !theGrid[y, x - 1].PieceName.Contains("Black"))
+                        theGrid[y, x - 1].LegalNextMove = true;
                     break;
 
                 case "BlackKnight":
-                    if(isSafe(currentCell.RowNumber + 2, currentCell.ColNumber + 1))
+                    if (isSafe(y + 2, x + 1) && !theGrid[y + 2, x + 1].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                        theGrid[y + 2, x + 1].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber + 2, currentCell.ColNumber - 1))
+                    if (isSafe(y + 2, x - 1) && !theGrid[y + 2, x - 1].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                        theGrid[y + 2, x - 1].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber - 2, currentCell.ColNumber + 1))
+                    if (isSafe(y - 2, x + 1) && !theGrid[y - 2, x + 1].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                        theGrid[y - 2, x + 1].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber - 2, currentCell.ColNumber - 1))
+                    if (isSafe(y - 2, x - 1) && !theGrid[y - 2, x - 1].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber - 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                        theGrid[y - 2, x - 1].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber + 2))
+                    if (isSafe(y + 1, x + 2) && !theGrid[y + 1, x + 2].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                        theGrid[y + 1, x + 2].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber - 2))
+                    if (isSafe(y + 1, x - 2) && !theGrid[y + 1, x - 2].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                        theGrid[y + 1, x - 2].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber + 2))
+                    if (isSafe(y - 1, x + 2) && !theGrid[y - 1, x + 2].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                        theGrid[y - 1, x + 2].LegalNextMove = true;
                     }
-                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 2))
+                    if (isSafe(y - 1, x - 2) && !theGrid[y - 1, x - 2].PieceName.Contains("Black"))
                     {
-                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                        theGrid[y - 1, x - 2].LegalNextMove = true;
                     }
                     break;
 
 
                 case "BlackRook":
-                  //  int y2 = currentCell.RowNumber;
-                  //  int x2 = currentCell.ColNumber;
-                    for (int i = 0; i < Size; i++)
+
+                    for (int i = 1; i < Size; i++)
                     {
-                        if (y == (i))
+                        if (isSafe(y - i, x))
                         {
-                            for (int j = 0; j < Size; j++)
+                            if (theGrid[y - i, x].PieceName.Contains("Black"))
                             {
-                                if (theGrid[i, j].CurrentlyOccupied == true)
-                                {; }
-                                else
-                                {
-                                    theGrid[i, j].LegalNextMove = true;
-                                }
-
+                                break;
                             }
+                            else if (theGrid[y - i, x].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x].LegalNextMove = true;
 
                         }
-                        else
-                        {
-                            theGrid[i, x].LegalNextMove = true;
-
-                        }
-
+                        else break;
                     }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x))
+                        {
+                            if (theGrid[y + i, x].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    
+                    for (int i = 1; i < Size; i++)
+                    {
+                        
+                        if (isSafe(y, x - i))
+                        {
+                            if (theGrid[y, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                            theGrid[y, x - i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y, x + i))
+                        {
+                            if (theGrid[y, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x + i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                
                     break;
 
                 case "BlackPawn":
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
+                    if (isSafe(y + 1, x))
                     {
-                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].PieceName.Equals(""))
+                        if (theGrid[y + 1, x].PieceName.Equals(""))
                         {
-                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
-                            if (y == 1 && theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].PieceName.Equals(""))
-                                theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].LegalNextMove = true;
-                        }
-                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].PieceName.Contains("White"))
-                        {
-                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].LegalNextMove = true;
-                        }
-                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].PieceName.Contains("White"))
-                        {
-                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].LegalNextMove = true;
-                        }
+                            theGrid[y + 1, x].LegalNextMove = true;
+                            if (y == 1 && theGrid[y + 2, x].PieceName.Equals(""))
+                                theGrid[y + 2, x].LegalNextMove = true;
+                        }              
                     }
+                    if (isSafe(y + 1, x - 1))
+                        if (theGrid[y + 1, x - 1].PieceName.Contains("White"))
+                        {
+                            theGrid[y + 1, x - 1].LegalNextMove = true;
+                        }
+                    if (isSafe(y + 1, x + 1))
+                        if (theGrid[y + 1, x + 1].PieceName.Contains("White"))
+                        {
+                            theGrid[y + 1, x + 1].LegalNextMove = true;
+                        }
                     break;
 
 
                 case "BlackQueen":
-                    for (int i = 0; i < Size; i++)
+                    for (int i = 1; i < Size; i++)
                     {
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(y - i, x))
+                        {
+                            if (theGrid[y - i, x].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x))
+                        {
+                            if (theGrid[y + i, x].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+
+                    for (int i = 1; i < Size; i++)
+                    {
+
+                        if (isSafe(y, x - i))
+                        {
+                            if (theGrid[y, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x - i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y, x + i))
+                        {
+                            if (theGrid[y, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y, x + i].LegalNextMove = true;
+                        }
+                        else break;
+                    }
+
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x - i))
+                        {
+                            if (theGrid[y - i, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x - i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x + i))
+                        {
+                            if (theGrid[y - i, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x + i))
+                        {
+                            if (theGrid[y + i, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x - i))
+                        {
+                            if (theGrid[y + i, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                        }
+                        else break;
                     }
                     break;
 
                 case "BlackBishop":
                     for (int i = 1; i < Size; i++)
                     {
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
-                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
-                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(y - i, x - i))
+                        {
+                            if (theGrid[y - i, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x - i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y - i, x + i))
+                        {
+                            if (theGrid[y - i, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y - i, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y - i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y - i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x + i))
+                        {
+                            if (theGrid[y + i, x + i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x + i].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x + i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x + i].LegalNextMove = true;
+
+                        }
+                        else break;
+                    }
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(y + i, x - i))
+                        {
+                            if (theGrid[y + i, x - i].PieceName.Contains("Black"))
+                            {
+                                break;
+                            }
+                            else if (theGrid[y + i, x - i].PieceName.Contains("White"))
+                            {
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                                break;
+                            }
+                            else
+                                theGrid[y + i, x - i].LegalNextMove = true;
+                        }
+                        else break;
                     }
                     break;
 
@@ -308,9 +829,36 @@ namespace Chess1
                     break;
             }
 
-            theGrid[currentCell.RowNumber, currentCell.ColNumber].CurrentlyOccupied = true;
+            theGrid[y, x].CurrentlyOccupied = true;
         }
+        /*
+        private void checkLine(Cell currentCell, int v1, int v2)
+        {
+            int y = currentCell.RowNumber;
+            int x = currentCell.ColNumber;
+            if (v1 != 0)
+                for (int i = 1; i < Size; i += v1)
+                {
+                    if (isSafe(y + i, x))
+                    {
+                        if (theGrid[y + i, x].PieceName.Contains("White"))
+                        {
+                            break;
+                        }
+                        else if (theGrid[y + i, x].PieceName.Contains("Black"))
+                        {
+                            theGrid[y - i, x].LegalNextMove = true;
+                            break;
+                        }
+                        else
+                            theGrid[y - i, x].LegalNextMove = true;
 
+                    }
+                    else break;
+                }
+            else if 
+        }
+        */
         public bool isSafe(int row, int col)
         {
             if (row >= 0 && col >= 0 && row < Size && col < Size)

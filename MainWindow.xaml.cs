@@ -92,7 +92,7 @@ namespace Chess1
                     }
                     else if (i == 7 && (j == 0 || j == 7))
                     {
-                        myBoard.theGrid[i, j].PieceName = "WhitekRook";
+                        myBoard.theGrid[i, j].PieceName = "WhiteRook";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
                     else if (i == 7 && (j == 1 || j == 6))
@@ -227,7 +227,7 @@ namespace Chess1
                 Cell currentCell = myBoard.theGrid[x, y];
                 currentCell.CurrentlyOccupied = true;
             
-                if (clickedLabel == "Legal")
+                if (clickedLabel == "MoveHere" || clickedLabel.Contains("Beat"))
                 {
                     myBoard.theGrid[currentCell.RowNumber, currentCell.ColNumber].PieceName = prevoiusClickedCell.PieceName;
                     prevoiusClickedCell.PieceName = "";
@@ -246,7 +246,11 @@ namespace Chess1
                                     {
                                         if (myBoard.theGrid[i, j].LegalNextMove == true)
                                         {
-                                            btnGrid[i, j].Content = "Legal";
+                                            if(btnGrid[i, j].Content.Equals(""))
+                                                btnGrid[i, j].Content = "MoveHere";
+                                            else
+                                                btnGrid[i, j].Content = "Beat";
+
                                         }
                                         else if (myBoard.theGrid[i, j].CurrentlyOccupied == true)
                                         {
