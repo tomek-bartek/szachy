@@ -39,7 +39,8 @@ namespace Chess1
 
             switch (chessPiece)
             {
-                case "King":
+                case "WhiteKing":
+
                     if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
                         theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
                     if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 1))
@@ -58,7 +59,7 @@ namespace Chess1
                         theGrid[currentCell.RowNumber, currentCell.ColNumber - 1].LegalNextMove = true;
                     break;
 
-                case "Knight":
+                case "WhiteKnight":
                     theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
                     theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
                     theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
@@ -70,7 +71,7 @@ namespace Chess1
                     break;
 
 
-                case "Rook":
+                case "WhiteRook":
                     int y = currentCell.RowNumber;
                     int x = currentCell.ColNumber;
                     for (int i = 0; i < Size; i++)
@@ -97,19 +98,17 @@ namespace Chess1
 
                     }
                     break;
-
-                case "PawnWhite":
-                    if (isSafe(currentCell.RowNumber-1, currentCell.ColNumber)) 
+                
+                case "WhitePawn":
+                    if (isSafe(currentCell.RowNumber-1, currentCell.ColNumber))
                         theGrid[currentCell.RowNumber-1, currentCell.ColNumber].LegalNextMove = true;
-                    
                     break;
 
-                case "PawnBlack":
-                    if (isSafe(currentCell.RowNumber+1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber+1, currentCell.ColNumber].LegalNextMove = true;
-                    break;
+               
 
-                case "Queen":
+                
+
+                case "WhiteQueen":
                     for (int i = 0; i < Size; i++)
                     {
                         if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
@@ -131,7 +130,7 @@ namespace Chess1
                     }
                     break;
 
-                case "Bishop":
+                case "WhiteBishop":
                     for (int i = 1; i < Size; i++)
                     {
                         if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
@@ -144,9 +143,117 @@ namespace Chess1
                             theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
                     }
                     break;
-                
+
+
+
+                case "BlackKing":
+
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
+                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 1))
+                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber + 1))
+                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber + 1))
+                        theGrid[currentCell.RowNumber, currentCell.ColNumber + 1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber + 1))
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber - 1))
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].LegalNextMove = true;
+                    if (isSafe(currentCell.RowNumber, currentCell.ColNumber - 1))
+                        theGrid[currentCell.RowNumber, currentCell.ColNumber - 1].LegalNextMove = true;
+                    break;
+
+                case "BlackKnight":
+                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    break;
+
+
+                case "BlackRook":
+                    int y2 = currentCell.RowNumber;
+                    int x2 = currentCell.ColNumber;
+                    for (int i = 0; i < Size; i++)
+                    {
+                        if (y2 == (i))
+                        {
+                            for (int j = 0; j < Size; j++)
+                            {
+                                if (theGrid[i, j].CurrentlyOccupied == true)
+                                {; }
+                                else
+                                {
+                                    theGrid[i, j].LegalNextMove = true;
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            theGrid[i, x2].LegalNextMove = true;
+
+                        }
+
+                    }
+                    break;
+
+                case "BlackPawn":
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
+                    break;
+
+
+                case "BlackQueen":
+                    for (int i = 0; i < Size; i++)
+                    {
+                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
+                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber))
+                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
+                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber + i))
+                            theGrid[currentCell.RowNumber, currentCell.ColNumber + i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
+                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber))
+                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
+                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber, currentCell.ColNumber - i))
+                            theGrid[currentCell.RowNumber, currentCell.ColNumber - i].LegalNextMove = true;
+                    }
+                    break;
+
+                case "BlackBishop":
+                    for (int i = 1; i < Size; i++)
+                    {
+                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber - i))
+                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber - i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber - i, currentCell.ColNumber + i))
+                            theGrid[currentCell.RowNumber - i, currentCell.ColNumber + i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber + i))
+                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber + i].LegalNextMove = true;
+                        if (isSafe(currentCell.RowNumber + i, currentCell.ColNumber - i))
+                            theGrid[currentCell.RowNumber + i, currentCell.ColNumber - i].LegalNextMove = true;
+                    }
+                    break;
+
+                /* case " ":
+                     theGrid[currentCell.RowNumber, currentCell.ColNumber].LegalNextMove = true;*/
+
 
                 default:
+
                     break;
             }
 

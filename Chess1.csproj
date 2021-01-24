@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

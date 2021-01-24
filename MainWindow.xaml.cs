@@ -33,33 +33,111 @@ namespace Chess1
 
         public void showStartBoard()
         {
-
+            bool WhiteCell;
             //metoda pokazuje plansze na Windows Formsie
             for (int i = 0; i < 8; i++)
             {
+                if (i % 2 == 0)
+                {WhiteCell = true;
+
+                }
+                else
+                {
+                    WhiteCell = false;
+                }
+                    
+
                 for (int j = 0; j < 8; j++)
                 {
-                    //Startowy board z ustawionymi pionkami 
-                    
+                   
+                    //Startowa plansza z ustawionymi pionkami 
+                     
                         //      Czarne Pionki
                     if (i == 1)
-                        myBoard.theGrid[i, j].PieceName = "PawnBlack";
+                        myBoard.theGrid[i, j].PieceName = "BlackPawn";
                     myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    
 
+                    if(i==0 && (j==0 || j == 7))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackRook";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    if (i == 0 && (j == 1 || j == 6))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackKnight";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
 
-                         //     Białe Pionki
+                    if (i == 0 && (j == 2 || j == 5))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackBishop";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    if (i == 0 && j ==3)
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackQueen";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                        
+                    }
+                    if (i == 0 && j == 4)
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackKing";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
 
+                    //     Białe Pionki
                     if (i == 6)
-                        myBoard.theGrid[i, j].PieceName = "PawnWhite";
+                        myBoard.theGrid[i, j].PieceName = "WhitePawn";
                     myBoard.theGrid[i, j].CurrentlyOccupied = true;
 
 
+                    if (i == 7 && (j == 0 || j == 7))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "WhitekRook";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    if (i == 7 && (j == 1 || j == 6))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "WhiteKnight";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+
+                    if (i == 7 && (j == 2 || j == 5))
+                    {
+                        myBoard.theGrid[i, j].PieceName = "WhiteBishop";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    if (i == 7 && j == 3)
+                    {
+                        myBoard.theGrid[i, j].PieceName = "WhiteQueen";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    if (i == 7 && j == 4)
+                    {
+                        myBoard.theGrid[i, j].PieceName = "WhiteKing";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+
+
+                
 
                     //  Button poleButton = new Button();
                     btnGrid[i, j] = new Button();
                     btnGrid[i, j].Click += Grid_Button_Click;
                     btnGrid[i, j].Content = myBoard.theGrid[i, j].PieceName;
-                   
+                    
+                    
+                    //Kolorowanie planszy:
+                    if(WhiteCell == true)
+                    {
+                        btnGrid[i, j].Background = Brushes.Beige;
+                        WhiteCell = false;
+                    }else
+                    {
+                        btnGrid[i, j].Background = Brushes.Brown;
+                        WhiteCell = true;
+                    }
                     //Oznaczenie numeru pola
 
 
@@ -75,13 +153,36 @@ namespace Chess1
         }
          public void showBoard()
         {
+            bool WhiteCell;
             for (int i = 0; i < myBoard.Size; i++)
             {
+
+                if (i % 2 == 0)
+                {
+                    WhiteCell = true;
+
+                }
+                else
+                {
+                    WhiteCell = false;
+                }
                 for (int j = 0; j < myBoard.Size; j++)
                 {   //stworzenie przycisku z nazwa pionka
                     btnGrid[i, j] = new Button();
                     btnGrid[i, j].Click += Grid_Button_Click;
                     btnGrid[i, j].Content = myBoard.theGrid[i, j].PieceName;
+
+                    //Kolorowanie planszy:
+                    if (WhiteCell == true)
+                    {
+                        btnGrid[i, j].Background = Brushes.Beige;
+                        WhiteCell = false;
+                    }
+                    else
+                    {
+                        btnGrid[i, j].Background = Brushes.Brown;
+                        WhiteCell = true;
+                    }
                     //otagowanie lokacją
                     btnGrid[i, j].Tag = new Point(i, j);
                     //dodanie do winformsa
@@ -92,9 +193,6 @@ namespace Chess1
 
             }
         }
-
-
-
 
 
         public static Cell prevoiusClickedCell = null;
@@ -117,10 +215,6 @@ namespace Chess1
             int x = (int)lokacja.X;
             int y = (int)lokacja.Y;
            
-
-
-
-
 
             Cell currentCell = myBoard.theGrid[x, y];
             currentCell.CurrentlyOccupied = true;

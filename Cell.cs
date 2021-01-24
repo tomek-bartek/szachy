@@ -12,10 +12,11 @@ namespace Chess1
             public int ColNumber { get; set; }
             public bool CurrentlyOccupied { get; set; }
             public bool LegalNextMove { get; set; }
-            
             public string PieceName { get; set; }
 
-            public Cell(int y, int x)
+        public Player PieceColor;
+
+        public Cell(int y, int x)
             {
                 RowNumber = y;
                 ColNumber = x;
