@@ -831,6 +831,7 @@ namespace Chess1
 
             theGrid[y, x].CurrentlyOccupied = true;
         }
+        //do zmniejszenia liczby linii 
         /*
         private void checkLine(Cell currentCell, int v1, int v2)
         {
@@ -867,9 +868,6 @@ namespace Chess1
                 return false;
 
         }
-
-        
-
 
     }
 }
