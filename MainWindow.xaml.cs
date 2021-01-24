@@ -238,7 +238,8 @@ namespace Chess1
                 }
                 else
                 {
-                    myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
+                    showBoard();
+                     myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
                      for (int i = 0; i < myBoard.Size; i++)
                                 {
                                     for (int j = 0; j < myBoard.Size; j++)
@@ -257,7 +258,7 @@ namespace Chess1
                      }
                 }
 
-                    prevoiusClickedCell = currentCell;
+                prevoiusClickedCell = currentCell;
 
             }
 

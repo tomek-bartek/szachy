@@ -100,15 +100,23 @@ namespace Chess1
                     break;
                 
                 case "WhitePawn":
-                    //if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
-                    //{
-                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].CurrentlyOccupied == false)
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
+                    {
+                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].PieceName.Equals(""))
                         { 
                             theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
-                            if (y == 6)
+                            if (y == 6 && theGrid[currentCell.RowNumber - 2, currentCell.ColNumber].PieceName.Equals(""))
                                 theGrid[currentCell.RowNumber - 2, currentCell.ColNumber].LegalNextMove = true;
                         }
-                    //}
+                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].PieceName.Contains("Black"))
+                        {
+                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 1].LegalNextMove = true;
+                        }
+                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].PieceName.Contains("Black"))
+                        {
+                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 1].LegalNextMove = true;
+                        }
+                    }
                     break;
 
                
@@ -174,14 +182,38 @@ namespace Chess1
                     break;
 
                 case "BlackKnight":
-                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 2, currentCell.ColNumber - 1].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 2].LegalNextMove = true;
-                    theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    if(isSafe(currentCell.RowNumber + 2, currentCell.ColNumber + 1))
+                    {
+                        theGrid[currentCell.RowNumber + 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber + 2, currentCell.ColNumber - 1))
+                    {
+                        theGrid[currentCell.RowNumber + 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber - 2, currentCell.ColNumber + 1))
+                    {
+                        theGrid[currentCell.RowNumber - 2, currentCell.ColNumber + 1].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber - 2, currentCell.ColNumber - 1))
+                    {
+                        theGrid[currentCell.RowNumber - 2, currentCell.ColNumber - 1].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber + 2))
+                    {
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber - 2))
+                    {
+                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber + 2))
+                    {
+                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber + 2].LegalNextMove = true;
+                    }
+                    if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber - 2))
+                    {
+                        theGrid[currentCell.RowNumber - 1, currentCell.ColNumber - 2].LegalNextMove = true;
+                    }
                     break;
 
 
@@ -214,11 +246,22 @@ namespace Chess1
                     break;
 
                 case "BlackPawn":
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))    
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
                     {
-                        theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
-                        if (y == 1)
-                            theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].LegalNextMove = true;
+                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].PieceName.Equals(""))
+                        {
+                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
+                            if (y == 1 && theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].PieceName.Equals(""))
+                                theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].LegalNextMove = true;
+                        }
+                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].PieceName.Contains("White"))
+                        {
+                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber - 1].LegalNextMove = true;
+                        }
+                        if (theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].PieceName.Contains("White"))
+                        {
+                            theGrid[currentCell.RowNumber + 1, currentCell.ColNumber + 1].LegalNextMove = true;
+                        }
                     }
                     break;
 
@@ -261,10 +304,7 @@ namespace Chess1
 
                 /* case " ":
                      theGrid[currentCell.RowNumber, currentCell.ColNumber].LegalNextMove = true;*/
-
-
                 default:
-
                     break;
             }
 
