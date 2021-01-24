@@ -20,10 +20,13 @@ namespace Chess1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Board myBoard = new Board(8);
-        public static Board myPossibleMove = new Board(8);
-     
-        public Button[,] btnGrid = new Button[myBoard.Size, myBoard.Size];
+        private static Board myBoard = new Board(8);
+        private static Board myPossibleMove = new Board(8);
+
+        private Button[,] btnGrid = new Button[myBoard.Size, myBoard.Size];
+
+        private static Cell prevoiusClickedCell = null; //zapamiętywanie klikniętego poprzedniego kliknięcia
+        private bool WhiteTurn = true;
 
         public MainWindow()
         {
@@ -38,87 +41,85 @@ namespace Chess1
             for (int i = 0; i < 8; i++)
             {
                 if (i % 2 == 0)
-                {WhiteCell = true;
-
-                }
+                { WhiteCell = true; }
                 else
-                {
-                    WhiteCell = false;
-                }
-                    
+                {    WhiteCell = false; }
+
 
                 for (int j = 0; j < 8; j++)
                 {
-                   
-                    //Startowa plansza z ustawionymi pionkami 
-                     
-                        //      Czarne Pionki
-                    if (i == 1)
-                        myBoard.theGrid[i, j].PieceName = "BlackPawn";
-                    myBoard.theGrid[i, j].CurrentlyOccupied = true;
-                    
 
-                    if(i==0 && (j==0 || j == 7))
+                    //Startowa plansza z ustawionymi pionkami 
+
+                    //      Czarne Pionki
+                    if (i == 1)
+                    {
+                        myBoard.theGrid[i, j].PieceName = "BlackPawn";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    else if (i == 0 && (j == 0 || j == 7))
                     {
                         myBoard.theGrid[i, j].PieceName = "BlackRook";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-                    if (i == 0 && (j == 1 || j == 6))
+                    else if (i == 0 && (j == 1 || j == 6))
                     {
                         myBoard.theGrid[i, j].PieceName = "BlackKnight";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
 
-                    if (i == 0 && (j == 2 || j == 5))
+                    else if (i == 0 && (j == 2 || j == 5))
                     {
                         myBoard.theGrid[i, j].PieceName = "BlackBishop";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-                    if (i == 0 && j ==3)
+                    else if (i == 0 && j == 3)
                     {
                         myBoard.theGrid[i, j].PieceName = "BlackQueen";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
-                        
+
                     }
-                    if (i == 0 && j == 4)
+                    else if (i == 0 && j == 4)
                     {
                         myBoard.theGrid[i, j].PieceName = "BlackKing";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-
                     //     Białe Pionki
-                    if (i == 6)
+                    else if (i == 6)
+                    {
                         myBoard.theGrid[i, j].PieceName = "WhitePawn";
-                    myBoard.theGrid[i, j].CurrentlyOccupied = true;
-
-
-                    if (i == 7 && (j == 0 || j == 7))
+                        myBoard.theGrid[i, j].CurrentlyOccupied = true;
+                    }
+                    else if (i == 7 && (j == 0 || j == 7))
                     {
                         myBoard.theGrid[i, j].PieceName = "WhitekRook";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-                    if (i == 7 && (j == 1 || j == 6))
+                    else if (i == 7 && (j == 1 || j == 6))
                     {
                         myBoard.theGrid[i, j].PieceName = "WhiteKnight";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-
-                    if (i == 7 && (j == 2 || j == 5))
+                    else if (i == 7 && (j == 2 || j == 5))
                     {
                         myBoard.theGrid[i, j].PieceName = "WhiteBishop";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-                    if (i == 7 && j == 3)
+                    else if (i == 7 && j == 3)
                     {
                         myBoard.theGrid[i, j].PieceName = "WhiteQueen";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-                    if (i == 7 && j == 4)
+                    else if (i == 7 && j == 4)
                     {
                         myBoard.theGrid[i, j].PieceName = "WhiteKing";
                         myBoard.theGrid[i, j].CurrentlyOccupied = true;
                     }
-
+                    else
+                    {
+                        myBoard.theGrid[i, j].PieceName = "";
+                        myBoard.theGrid[i, j].CurrentlyOccupied = false;
+                    }
 
                 
 
@@ -194,76 +195,71 @@ namespace Chess1
             }
         }
 
-
-        public static Cell prevoiusClickedCell = null;
         
         private void Grid_Button_Click(object sender, RoutedEventArgs e)
         {
             
             Button clickedCell = (Button)sender;
             string clickedLabel ="";
-            if (null == clickedCell.Content.ToString())
+            
+            if (clickedCell.Content.ToString() == null || clickedCell.Content.ToString() == "")
             {
                 MessageBox.Show("Tu nie ma pionka");
             }
-            else
+            else if (clickedCell.Content.ToString().Contains("White") && WhiteTurn == false)
             {
-
-            clickedLabel = clickedCell.Content.ToString();
+                MessageBox.Show("Tura czarnego");
             }
-            Point lokacja = (Point)clickedCell.Tag;
-            int x = (int)lokacja.X;
-            int y = (int)lokacja.Y;
-           
-
-            Cell currentCell = myBoard.theGrid[x, y];
-            currentCell.CurrentlyOccupied = true;
-            
-            if (clickedLabel == "Legal")
+            else if (clickedCell.Content.ToString().Contains("Black") && WhiteTurn == true)
             {
-                myBoard.theGrid[currentCell.RowNumber, currentCell.ColNumber].PieceName = prevoiusClickedCell.PieceName;
-                prevoiusClickedCell.PieceName = "";
-                prevoiusClickedCell.CurrentlyOccupied = false;
-                showBoard();
-
+                MessageBox.Show("Tura białego");
             }
             else
             {
-            myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
-             for (int i = 0; i < myBoard.Size; i++)
-                        {
-                            for (int j = 0; j < myBoard.Size; j++)
-                            {
-                                if (myBoard.theGrid[i, j].LegalNextMove == true)
-                                {
-                                    btnGrid[i, j].Content = "Legal";
-                                }
-                                else if (myBoard.theGrid[i, j].CurrentlyOccupied == true)
-                                {
-                                    btnGrid[i, j].Content = myBoard.theGrid[i,j].PieceName;
-                                }
-
-                            }  
-                            
-                            
-                            
-                            
-                          /*  grid.Children.Clear();*/
-                
-
-                        }
-            }
-
-                prevoiusClickedCell = currentCell;
-            
-              
-            
-            
-            
+                clickedLabel = clickedCell.Content.ToString();
             
 
+                Point lokacja = (Point)clickedCell.Tag;
+                int x = (int)lokacja.X;
+                int y = (int)lokacja.Y;
            
 
+                Cell currentCell = myBoard.theGrid[x, y];
+                currentCell.CurrentlyOccupied = true;
+            
+                if (clickedLabel == "Legal")
+                {
+                    myBoard.theGrid[currentCell.RowNumber, currentCell.ColNumber].PieceName = prevoiusClickedCell.PieceName;
+                    prevoiusClickedCell.PieceName = "";
+                    prevoiusClickedCell.CurrentlyOccupied = false;
+                    WhiteTurn = !WhiteTurn;
+                    showBoard();
+
+                }
+                else
+                {
+                    myBoard.MarkNextLegalMoves(currentCell, clickedLabel);
+                     for (int i = 0; i < myBoard.Size; i++)
+                                {
+                                    for (int j = 0; j < myBoard.Size; j++)
+                                    {
+                                        if (myBoard.theGrid[i, j].LegalNextMove == true)
+                                        {
+                                            btnGrid[i, j].Content = "Legal";
+                                        }
+                                        else if (myBoard.theGrid[i, j].CurrentlyOccupied == true)
+                                        {
+                                            btnGrid[i, j].Content = myBoard.theGrid[i,j].PieceName;
+                                        }
+
+                                    }      
+                                  /*  grid.Children.Clear();*/
+                     }
+                }
+
+                    prevoiusClickedCell = currentCell;
+
+            }
 
         }
     }

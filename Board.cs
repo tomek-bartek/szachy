@@ -36,7 +36,8 @@ namespace Chess1
                 }
             }
             //oznaczneie legalnych ruchów
-
+            int y = currentCell.RowNumber;
+            int x = currentCell.ColNumber;
             switch (chessPiece)
             {
                 case "WhiteKing":
@@ -72,8 +73,7 @@ namespace Chess1
 
 
                 case "WhiteRook":
-                    int y = currentCell.RowNumber;
-                    int x = currentCell.ColNumber;
+                    
                     for (int i = 0; i < Size; i++)
                     {
                         if (y == (i))
@@ -100,8 +100,15 @@ namespace Chess1
                     break;
                 
                 case "WhitePawn":
-                    if (isSafe(currentCell.RowNumber-1, currentCell.ColNumber))
-                        theGrid[currentCell.RowNumber-1, currentCell.ColNumber].LegalNextMove = true;
+                    //if (isSafe(currentCell.RowNumber - 1, currentCell.ColNumber))
+                    //{
+                        if (theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].CurrentlyOccupied == false)
+                        { 
+                            theGrid[currentCell.RowNumber - 1, currentCell.ColNumber].LegalNextMove = true;
+                            if (y == 6)
+                                theGrid[currentCell.RowNumber - 2, currentCell.ColNumber].LegalNextMove = true;
+                        }
+                    //}
                     break;
 
                
@@ -179,11 +186,11 @@ namespace Chess1
 
 
                 case "BlackRook":
-                    int y2 = currentCell.RowNumber;
-                    int x2 = currentCell.ColNumber;
+                  //  int y2 = currentCell.RowNumber;
+                  //  int x2 = currentCell.ColNumber;
                     for (int i = 0; i < Size; i++)
                     {
-                        if (y2 == (i))
+                        if (y == (i))
                         {
                             for (int j = 0; j < Size; j++)
                             {
@@ -199,7 +206,7 @@ namespace Chess1
                         }
                         else
                         {
-                            theGrid[i, x2].LegalNextMove = true;
+                            theGrid[i, x].LegalNextMove = true;
 
                         }
 
@@ -207,8 +214,12 @@ namespace Chess1
                     break;
 
                 case "BlackPawn":
-                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))
+                    if (isSafe(currentCell.RowNumber + 1, currentCell.ColNumber))    
+                    {
                         theGrid[currentCell.RowNumber + 1, currentCell.ColNumber].LegalNextMove = true;
+                        if (y == 1)
+                            theGrid[currentCell.RowNumber + 2, currentCell.ColNumber].LegalNextMove = true;
+                    }
                     break;
 
 
